@@ -15,10 +15,10 @@ function NewChat() {
     <ChatWindow
       key="new"
       initialMessages={[]}
-      onStartNew={async (text) => {
+      onStartNew={async (text, files) => {
         try {
           const id = await createThread();
-          pendingFirstMessage.set(id, text);
+          pendingFirstMessage.set(id, { text, files });
           qc.setQueryData(["messages", id], []);
           await qc.invalidateQueries({ queryKey: ["threads"] });
           navigate({ to: "/chat/$threadId", params: { threadId: id } });

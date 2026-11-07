@@ -1,0 +1,4 @@
+ALTER TABLE public.messages ADD COLUMN attachments jsonb NOT NULL DEFAULT '[]'::jsonb;
+CREATE POLICY "own attachments read" ON storage.objects FOR SELECT TO authenticated USING (bucket_id = 'attachments' AND (storage.foldername(name))[1] = auth.uid()::text);
+CREATE POLICY "own attachments insert" ON storage.objects FOR INSERT TO authenticated WITH CHECK (bucket_id = 'attachments' AND (storage.foldername(name))[1] = auth.uid()::text);
+CREATE POLICY "own attachments delete" ON storage.objects FOR DELETE TO authenticated USING (bucket_id = 'attachments' AND (storage.foldername(name))[1] = auth.uid()::text);
