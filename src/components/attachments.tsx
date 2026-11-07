@@ -61,7 +61,7 @@ export function AssistantContent({ content }: { content: string }) {
   let last = 0;
   for (const m of content.matchAll(FILE_BLOCK)) {
     if (m.index > last) pieces.push({ kind: "md", text: content.slice(last, m.index) });
-    pieces.push({ kind: "file", name: m[1].trim(), body: m[2] });
+    pieces.push({ kind: "file", name: (m[1] ?? "arquivo.txt").trim(), body: m[2] ?? "" });
     last = m.index + m[0].length;
   }
   if (last < content.length) pieces.push({ kind: "md", text: content.slice(last) });
