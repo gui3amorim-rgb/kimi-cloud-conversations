@@ -28,3 +28,5 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+- Chat streaming lives in the server route `src/routes/api/chat.ts` (verifies the bearer token, saves user + assistant messages with RLS as the user); the browser only calls it via `src/lib/chat-api.ts`. Why: keeps model calls and history writes server-side.
